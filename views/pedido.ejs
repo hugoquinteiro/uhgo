@@ -43,8 +43,8 @@
          <div class="input-group mb-3">
           <button class="button btn-success mx-2" id="loadDesc" onclick="updateTotal()"> <i class="fas fa-sync"></i> </button>
           <span class="input-group-text">%</span>
-          <button class="button btn-success mx-2" id="per5" value=5 onclick="atuaDesc(5)"> 5%</button>
-          <button class="button btn-success mx-2" id="per10" value=10 onclick="atuaDesc(10)">10%</button>
+          <button class="button btn-success mx-2" id="per5" value=5 onclick="atuaDesc(<%=config.descto1%>)"> <%= config.descto1 %> %</button>
+          <button class="button btn-success mx-2" id="per10" value=10 onclick="atuaDesc(<%= config.descto2 %>)"><%= config.descto2 %>%</button>
           <input type="number" class="form-control text-end" id="perDesc" aria-label="Desconto em %" value="">
           <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal" onclick="updateTotal()">Continuar</button>
          </div>
@@ -110,7 +110,7 @@
                             <div class="card-body col-12 col-lg-6 bg-ligth" id="itens">
                               <%=dado.descrprod%>
                             <span id="span"><strong>$<%=dado.vlrvenda%></strong></span>
-                            <button key="{{codprod}},{{descrprod}},{{vlrvenda}},0,{{codbarra}}" class=" btn btn-success" id="btnAdd">+</button>
+                            <button key="<%=dado.codprod%>,<%=dado.descrprod%>,<%=dado.vlrvenda%>,<%=dado.codbarra%>" class=" btn btn-success" id="btnAdd">+</button>
                             </div>
 
                       </div>
@@ -125,7 +125,7 @@
   
   
   
-  {{!-- Alert de gravação do Item --}}
+  <!-- Alert de gravação do Item -->
   <div class="position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 5">
     <div id="liveToast" class="toast bg-success text-white bg-opacity-75" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
       <div class="toast-body text-center">

@@ -79,26 +79,11 @@ app.get('/pedido', function(req, res){
     //console.log(produtos)
     produtos.forEach(function (valor, indice){
       valor.vlrvenda2 = parseFloat(valor.vlrvenda).toLocaleString('pt-br', {minimumFractionDigits: 2, maximumFractionDigits:2})
-      //console.log('Valor:', valor.vlrvenda2)
-      switch(valor.marca){
-        case 'FORCE BARB': marcaForce.push(valor)
-        break
-        case 'MQ BEAUTY' : marcaBeauty.push(valor) 
-        break
-        case 'MQ ESCOVAS' : marcaEscovas.push(valor) 
-        break
-        case 'MQ PRO' : marcaPro.push(valor) 
-        break
-        case 'PARLUX' : marcaParlux.push(valor) 
-        break
-      }
-      
       total.push(valor)
-
     })
 
-    console.log(total[0])
-    res.render('pedido', {total: total, force: marcaForce, beauty: marcaBeauty, escovas: marcaEscovas, pro: marcaPro, parlux: marcaParlux, usuario:req.session.login})
+//    console.log(config)
+    res.render('pedido', {total: total, usuario:req.session.login, config:config})
   })
     //console.log(listaProd) //teste
 }else{
@@ -122,7 +107,7 @@ app.post('/gravar', (req, res) => {
 let dtcria = new Date()
   var cab = {}
   cab = {usuario:req.session.login, dtcria:dtcria,total:totalItens, desc:vlrDescto}
-  //console.log(cab)
+  console.log(cab, pedido)
   insert(cab, pedido).then(retorno =>{
     //console.log('retorno',retorno)
     res.send(retorno[0])
@@ -170,6 +155,6 @@ app.get('/logout', function(req, res){
   res.render('menu', {usuario:'** SEM USUÁRIO **', logout:false})
 })
 
-app.listen(8081, ()=>{
-	console.log("Serevidor rodando em 8081")
+app.listen(config.portahttd, ()=>{
+	console.log("Serevidor rodando em "+ config.portahttd)
 })
