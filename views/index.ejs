@@ -1,0 +1,19 @@
+<%- include ('./partials/header.ejs') %>
+<body onload=loadIndex()>
+    <%- include ('./partials/navbar.ejs') %>
+    <div class="container">
+        <div class="card mt-5 justify-content-center" id="usuario" <% if (logout) { %>hidden <% }  %> >
+            <h4 class="mt-2">Registro de Usuário</h4>
+            <div class="card-body" >
+              <form action="/" method="POST">
+                <label for="usuario">Usuário:</label>
+                <input type="text" class="form-control" name="usuario" id="usuario" required><br>
+                <button class="btn btn-success">Registar</button>
+              </form>
+            </div>
+          </div>    
+      <h1>HUGO *************</h1>
+    </div>
+
+</body>
+<%- include ('./partials/footer.ejs') %>

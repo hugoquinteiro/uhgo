@@ -1,0 +1,21 @@
+2. Tela de Lista de pedido com reimpressão
+- Login de usuário
+- Rodapé com identificação do usuário
+- Bloquear impressão sem Itens
+- Não permitir recarregamento da tela sem perguntar
+- Reimpressão na lista
+- Melhor formatação do valor com 999.999,99
+- Mandar numero complenta na impresso do Cod Barra.
+
+
+*** Concluídos ***
+- Alert personalizado
+- Correção de erro no Pool do Postgres
+- Finalizar gravação do pedido
+- Desenvolvimento da impressão do cupom Pré venda
+- Arquivo de parametro de impressão e Porta
+- caixa de busca do item por descrição
+- Carrinho com Total do Pedido
+- caixa de busca do item por descrição
+- Opção de Desconto
+- Tirar coluna de quantidade

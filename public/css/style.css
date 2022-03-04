@@ -1,0 +1,57 @@
+.barra{
+  margin-top: 10px;
+  border: solid 1px rgb(230, 224, 224);
+  padding: 10px;
+  /* border-radius: 5em; */
+  justify-self: center
+}
+
+#itens {
+    position: relative;
+    border: solid 1px rgb(230, 224, 224);
+    /*font-size: 1rem;*/
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding: 5px 5px;
+    height: 90px;
+}
+
+#btnAdd {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 10%;
+  font-size: 25px;
+  padding: 0px 0px;
+}
+
+div#usuario{
+  /* width: 50%; */
+  align-items: center;
+  align-self: center;
+}
+
+#span{
+  position: absolute;
+  font-size: 15px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  bottom: 3px;
+  left: 5px;
+}
+
+/* Tentando configurar botões do pedido fixo */
+.cabPed{
+  position: -webkit-sticky; /* safari */
+  top: 5px;
+  background-color: rgb(216, 224, 231);
+}
+
+.footer{
+  /* position: fixed; */
+  position: static;
+  width: 30%;
+  margin: 10px 20px;
+  /* bottom: 30px; */
+  background-color: rgb(216, 224, 231);
+  /* background-color: tomato; */
+}
+
