@@ -40,7 +40,7 @@ for( var i=0; i<inclui.length; i++){
     // td_qtd.innerText = item[2]
     td_valor.innerText = item[2]
     td_delete.innerHTML = `<button class="btnDelete btn btn-danger" id="btnDelete">X</button>`
-    td_delete.setAttribute('value', item[4] )
+    td_delete.setAttribute('value', item[3] )
 
     //Gravando no LocalStorage
 /*  Desativada essa opção no momento  

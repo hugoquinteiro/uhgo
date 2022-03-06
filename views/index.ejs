@@ -11,9 +11,34 @@
                 <button class="btn btn-success">Registar</button>
               </form>
             </div>
-          </div>    
-      <h1>****   Hugo Quinteiro*******</h1>
-    </div>
+          </div>
+
+        <h1>Teste: <%= logout %></h1>
+        <% if (logout) { %>    
+          <h1>Pedidos</h1>
+          <table class="table .table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col" style="text-align: right">Valor</th>
+                <th scope="col">Login</th>
+                <th scope="col">Imp</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%pedidos.forEach(dado => {          %>
+              <tr>
+                <th scope="row"><%=dado.id%></th>
+                <th style="text-align: right"><%=dado.total%></th>
+                <td><%=dado.usuario%></td>
+                <td><i class="fas fa-print"></i></td>
+              </tr>
+              <%})%>
+            </tbody>
+          </table>
+          <% }  %>
+    
+        </div>
 
 </body>
 <%- include ('./partials/footer.ejs') %>
