@@ -4,11 +4,13 @@ const app = express()
 const handlebars = require('express-handlebars')
 const path = require('path')
 const select = require('./select')
-const insert = require('./insert2')
+const insert = require('./pgsql/insert2')
 const bodyParser = require('body-parser')
 const { now } = require('jquery')
 const print = require('./bema/loadPort')
 const config = require('./config/config')
+const atualizaPreco = require('./api/atualizaPreco')
+var axios = require('axios');
 
 
 //config
@@ -35,7 +37,9 @@ app.post('/', function(req, res){
  
   if(req.session.login){
     console.log('usu: ',req.session.login )
-    res.render('index', {usuario:req.session.login, logout:true})
+
+      res.render('index', {usuario:req.session.login, logout:true, pedidos:[]})
+
   }
 })
 
@@ -49,7 +53,7 @@ app.get('/', function(req, res){
       ret.forEach(function(valor){
       pedidos.push(valor)
       })
-      //console.log(pedidos)
+//      console.log(pedidos)
       res.render('index', {usuario:req.session.login, logout:true, pedidos:pedidos})
     })
     
@@ -70,11 +74,6 @@ app.get('/pedido', function(req, res){
     var listaProd = {} //temp
    select('produto', 'marca,descrprod').then(produtos => {
 
-    var marcaForce = []
-    var marcaBeauty = []
-    var marcaEscovas = []
-    var marcaPro = []
-    var marcaParlux = []
     var total = []
     //console.log(produtos)
     produtos.forEach(function (valor, indice){
@@ -87,7 +86,7 @@ app.get('/pedido', function(req, res){
   })
     //console.log(listaProd) //teste
 }else{
-  res.render('menu', {usuario:'SEM USUÁRIO!!', logout:false})
+  res.render('index', {usuario:'SEM USUÁRIO!!', logout:false})
   console.log('SEM USUÁRIO')
 }  
 })
@@ -106,14 +105,14 @@ app.post('/gravar', (req, res) => {
   totalItens = totalItens.toFixed(2)
 let dtcria = new Date()
   var cab = {}
+
   cab = {usuario:req.session.login, dtcria:dtcria,total:totalItens, desc:vlrDescto}
-  console.log(cab, pedido)
+  //console.log(cab, pedido)
   insert(cab, pedido).then(retorno =>{
     //console.log('retorno',retorno)
     res.send(retorno[0])
   } )
-  //res.render('menu', {usuario:req.session.login, logout:true})
-  
+    
   //console.log('impressão:', config.imprimecupom)
   //Preparando dados para impressão
   if (config.imprimecupom) {
@@ -150,9 +149,29 @@ let dtcria = new Date()
   
 })
 
+app.get('/config', function(req, res){
+  if(req.session.login){
+      res.render('config', {usuario:req.session.login, logout:true, config:config})
+      console.log ('atualizaPreco:', atualizaPreco.responseBody)
+      axios(atualizaPreco)
+      .then(async function (response) {
+        //console.log(response.data.responseBody.rows);
+        console.log(await response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+  } else {
+    res.render('index', {usuario:'** SEM USUÁRIO **', logout:false})
+  }
+})
+
+
+
 app.get('/logout', function(req, res){
   req.session.login = null
-  res.render('menu', {usuario:'** SEM USUÁRIO **', logout:false})
+  res.render('index', {usuario:'** SEM USUÁRIO **', logout:false})
 })
 
 app.listen(config.portahttd, ()=>{
