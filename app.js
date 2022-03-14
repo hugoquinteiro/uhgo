@@ -10,6 +10,8 @@ const { now } = require('jquery')
 const print = require('./bema/loadPort')
 const config = require('./config/config')
 const atualizaPreco = require('./api/atualizaPreco')
+const consultaEstoque = require('./api/buscaEstoque')
+const updateEstoque = require('./pgsql/updateEstoque')
 var axios = require('axios');
 
 
@@ -30,6 +32,20 @@ var axios = require('axios');
 
   // //public
   // app.use(express.static(path.join(__dirname, "public")))
+
+  //Rotina de Atualização do Saldo de Estoque
+  setInterval(function consultaestoque(){
+    let data = new Date();
+    console.log('Atualização de Estoque: '+ data)
+    //console.log(typeof consultaEstoque)
+    consultaEstoque().then(dados=> {
+      //console.log(dados)
+      updateEstoque(dados).then(retorno => console.log('retorno:',retorno))
+
+    })
+    
+
+  }, 1000 * 5)
 
 
 app.post('/', function(req, res){

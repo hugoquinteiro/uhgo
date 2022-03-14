@@ -34,8 +34,17 @@ div#usuario{
   position: absolute;
   font-size: 15px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-  bottom: 3px;
-  left: 5px;
+  bottom: 5%;
+  left: 50%;
+}
+
+
+#estoque{
+  position: absolute;
+  left: 10px;
+  font-size: 15px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  bottom: 5%;
 }
 
 /* Tentando configurar botões do pedido fixo */
