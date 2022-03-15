@@ -1,7 +1,10 @@
-2. Tela de Lista de pedido com reimpressão
+1. Atualização de Estoque
+2. Atualização de Preço
+3. Inclusão da Prevenda
+4. Tela de configurações
+
 - Login de usuário
 - Rodapé com identificação do usuário
-- Bloquear impressão sem Itens
 - Não permitir recarregamento da tela sem perguntar
 - Reimpressão na lista
 - Melhor formatação do valor com 999.999,99
@@ -19,3 +22,4 @@
 - caixa de busca do item por descrição
 - Opção de Desconto
 - Tirar coluna de quantidade
+- Bloquear impressão sem Itens

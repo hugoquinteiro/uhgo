@@ -3,5 +3,6 @@ module.exports = {
   imprimecupom : false,
   descto1 : '2',
   descto2 : '5', 
-  portahttd: 80
+  portahttd: 80,
+  timeUpdateEstoque: 60
 }

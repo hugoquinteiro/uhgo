@@ -39,13 +39,15 @@ var axios = require('axios');
     console.log('Atualização de Estoque: '+ data)
     //console.log(typeof consultaEstoque)
     consultaEstoque().then(dados=> {
-      //console.log(dados)
-      updateEstoque(dados).then(retorno => console.log('retorno:',retorno))
+      
+      updateEstoque(dados).then(retorno => {
+        retorno.forEach(est =>{console.log('Item: ', est[0], 'Estoque: ', est[1])})
+      } )
 
     })
     
 
-  }, 1000 * 5)
+  }, 1000 * 60 * config.timeUpdateEstoque)
 
 
 app.post('/', function(req, res){
@@ -191,5 +193,5 @@ app.get('/logout', function(req, res){
 })
 
 app.listen(config.portahttd, ()=>{
-	console.log("Serevidor rodando em "+ config.portahttd)
+	console.log("Servidor rodando em "+ config.portahttd)
 })
