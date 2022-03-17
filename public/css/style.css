@@ -64,3 +64,8 @@ div#usuario{
   /* background-color: tomato; */
 }
 
+#btnNovoPedido{
+  position: static;
+  margin-left: 40%; 
+
+}

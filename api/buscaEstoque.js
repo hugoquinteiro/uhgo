@@ -1,7 +1,8 @@
 var axios = require('axios');
 var login = require('./loginapi')
+const server = require('./server')
 
-const url = "http://192.168.1.56:8280/mge/service.sbr?serviceName=DbExplorerSP.executeQuery&application=DbExplorer&outputType=json"
+const url = `http://${server.name}/mge/service.sbr?serviceName=DbExplorerSP.executeQuery&application=DbExplorer&outputType=json`
 
 var consulta = async function(){
     return login().then( async (res) => {

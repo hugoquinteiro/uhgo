@@ -1,18 +1,17 @@
 const express = require('express')
 const session = require('express-session')
 const app = express()
-const handlebars = require('express-handlebars')
-const path = require('path')
-const select = require('./select')
+//const path = require('path')
+const select = require('./pgsql/select')
 const insert = require('./pgsql/insert2')
 const bodyParser = require('body-parser')
-const { now } = require('jquery')
+//const { now } = require('jquery')
 const print = require('./bema/loadPort')
 const config = require('./config/config')
 const atualizaPreco = require('./api/atualizaPreco')
 const consultaEstoque = require('./api/buscaEstoque')
 const updateEstoque = require('./pgsql/updateEstoque')
-var axios = require('axios');
+const insUpProduto  = require('./pgsql/insertUpdateProduto')
 
 
 //config
@@ -66,7 +65,8 @@ app.post('/', function(req, res){
 app.get('/', function(req, res){
   if(req.session.login){
     let pedidos = []
-    select('pedido', 'dtcria DESC', `usuario='${req.session.login}'`,5)
+    const query = `SELECT * FROM pedido WHERE usuario='${req.session.login}' ORDER BY dtcria DESC LIMIT 5`
+    select(query)
     .then(ret =>{
       ret.forEach(function(valor){
       pedidos.push(valor)
@@ -88,9 +88,10 @@ app.get('/pedido', function(req, res){
   console.log('carregar pedido', tempPed)
   if(req.session.login){
 
-    var marcaTemp //temp
-    var listaProd = {} //temp
-   select('produto', 'marca,descrprod').then(produtos => {
+   const query = `SELECT codprod, descrprod, marca.marcapublico, produto.marca, referencia, vlrvenda, marca.color, marca.textcolor, estoque 
+                FROM produto LEFT JOIN marca ON (produto.marca = marca.marca) 
+                ORDER BY marca.ordem, descrprod`
+   select(query).then(produtos => {
 
     var total = []
     //console.log(produtos)
@@ -167,14 +168,18 @@ let dtcria = new Date()
   
 })
 
-app.get('/config', function(req, res){
+app.get('/atualizaPreco', function(req, res){
   if(req.session.login){
-      res.render('config', {usuario:req.session.login, logout:true, config:config})
-      console.log ('atualizaPreco:', atualizaPreco.responseBody)
-      axios(atualizaPreco)
+
+    atualizaPreco()
       .then(async function (response) {
         //console.log(response.data.responseBody.rows);
-        console.log(await response.data);
+        console.log('Busca Atualização')
+        //console.log('API', response)
+        insUpProduto(response).then(resp => {
+          console.log('Atualizados', resp)
+          res.render('atualizaPreco', {usuario:req.session.login, logout:true, config:config, itens: resp})
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -182,6 +187,12 @@ app.get('/config', function(req, res){
 
   } else {
     res.render('index', {usuario:'** SEM USUÁRIO **', logout:false})
+  }
+})
+
+app.get('/params', (req, res) =>{
+  if(req.session.login){
+    res.render('params', {usuario:req.session.login, config:config, logout:true})
   }
 })
 

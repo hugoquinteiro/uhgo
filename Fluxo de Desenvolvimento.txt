@@ -1,14 +1,12 @@
-1. Atualização de Estoque
-2. Atualização de Preço
 3. Inclusão da Prevenda
-4. Tela de configurações
 
-- Login de usuário
+
 - Rodapé com identificação do usuário
+- Incluir informações do produto
 - Não permitir recarregamento da tela sem perguntar
 - Reimpressão na lista
 - Melhor formatação do valor com 999.999,99
-- Mandar numero complenta na impresso do Cod Barra.
+- Mandar numero complento na impresso do Cod Barra.
 
 
 *** Concluídos ***
@@ -23,3 +21,6 @@
 - Opção de Desconto
 - Tirar coluna de quantidade
 - Bloquear impressão sem Itens
+4. Tela de configurações
+1. Atualização de Estoque
+2. Atualização de Preço

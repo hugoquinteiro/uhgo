@@ -1,0 +1,34 @@
+<%- include ('./partials/header.ejs') %>
+<body>
+    <%- include ('./partials/navbar.ejs') %>
+
+    <div class="container">
+        <h3>Parâmetros</h3>
+        <% if (logout) { %>    
+            <table class="table .table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Desconto 1</th>
+                  <th scope="col">Desconto 2</th>
+                  <th scope="col">Impressão</th>
+                  <th scope="col">Porta de Impressão</th>
+                  <th scope="col">Atualização de Estoque</th>
+                </tr>
+              </thead>
+              
+            <tbody>
+                <tr>
+                  <th scope="row"><%=config.descto1%> %</th>
+                  <th><%=config.descto2%> %</th>
+                  <th><%=config.imprimecupom%></th>
+                  <th><%=config.portacom%></th>
+                  <th><%=config.timeUpdateEstoque%> minutos</th>
+                </tr>
+            </tbody>
+            </table>
+            <% }  %> 
+    </div>
+
+<%- include ('./partials/footer.ejs') %>
+
+    

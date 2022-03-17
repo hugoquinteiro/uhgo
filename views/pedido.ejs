@@ -96,9 +96,9 @@
         %>
           <!-- CARD PRO -->
           <!-- <div class="card"> -->
-              <div class="card-header bg-<%=dado.color%> text-light" id="pergunta2">
+              <div class="card-header bg-<%=dado.color%> text-<%=dado.textcolor%>" id="pergunta2" >
                   <h5 class="mb-0 text-center" data-toggle="collapse" data-target="#<%=dado.marca.replace(' ', '')%>">
-                    <%=dado.marca%>
+                    <%=dado.marcapublico%>
                   </h5>
               </div>
         <%} 
@@ -111,7 +111,7 @@
                               <%=dado.descrprod%>
                             <span id="span"><strong>$<%=dado.vlrvenda%></strong></span>
                             <span id="estoque"><i class="fas fa-cubes"></i><strong>   <%=dado.estoque%></strong></span>
-                            <button key="<%=dado.codprod%>,<%=dado.descrprod%>,<%=dado.vlrvenda%>,<%=dado.codbarra%>" class=" btn btn-success" id="btnAdd">+</button>
+                            <button key="<%=dado.codprod%>,<%=dado.descrprod%>,<%=dado.vlrvenda%>,<%=dado.codbarra%>" class=" btn btn-success" id="btnAdd" <% if(dado.estoque=='0') { %> hidden <% } %> >+</button>
                             </div>
 
                       </div>

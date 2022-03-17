@@ -4,8 +4,7 @@ var vlrDescto = document.getElementById('vlrDescto')
 var totalLiq = document.getElementById('totalLiq')
 //console.log('Entrei na tela')
 var inclui = document.getElementsByTagName('button')
-var per5 = document.getElementById('per5').value
-
+//var per5 = document.getElementById('per5').value
 
 
 //Inclui item no pedido
