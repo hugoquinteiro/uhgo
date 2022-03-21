@@ -44,9 +44,14 @@ const insUpProduto  = require('./pgsql/insertUpdateProduto')
       } )
 
     })
-    
+   
 
   }, 1000 * 60 * config.timeUpdateEstoque)
+
+  // //Teste para ver tudo que tem na Session
+  // setInterval( () =>{
+  //   console.log('Session:', session.Session, session)
+  // }, 1000 * 4)
 
 
 app.post('/', function(req, res){
