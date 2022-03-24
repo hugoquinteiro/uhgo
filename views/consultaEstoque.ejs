@@ -1,0 +1,38 @@
+<%- include ('./partials/header.ejs') %>
+<body>
+    <%- include ('./partials/navbar.ejs') %>
+
+    <div class="container">
+        <% if (logout) { %>    
+            <h1>Consulta Estoque</h1>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Cod</th>
+                  <th scope="col">Produto</th>
+                  <th scope="col">Est</th>
+                  <th scope="col" style="text-align: right">Valor</th>
+                </tr>
+              </thead>
+              
+            <% if (produto) {
+                 produto.forEach(dado => {          %>
+            <tbody>
+                <tr>
+                  <th scope="row"><%=dado.codprod%></th>
+                  <td><%=dado.descrprod%></td>
+                  <td style="text-align: right"><%=dado.estoque%></td>
+                  <th style="text-align: right"><%=dado.vlrvenda.toLocaleString('pt-br', {minimumFractionDigits: 2, maximumFractionDigits:2})%></th>
+                </tr>
+            </tbody>
+                <%})
+            }%>
+            <p> Total de Itens: <%= produto.length %> </p>
+            </table>
+            <% }  %>         
+    
+    </div>
+
+<%- include ('./partials/footer.ejs') %>
+
+    

@@ -12,7 +12,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <table class="table" id="tableItens">
+          <table class="table-responsive" id="tableItens">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -22,7 +22,6 @@
               </tr>
             </thead>
             <tbody id="tbodyItens">
-  
             </tbody>  
             <tfoot id="tfoot">
               <tr class="bg-secondary text-white">
@@ -78,8 +77,11 @@
           Salvar
         </button>
       </div>
-      <div class="col-6 align-self-center">
-        <input class="form-control mt-2" type="search" placeholder="Busca..." aria-label="Search" id="search" onkeyup="buscaItem()">
+      <div class="col-9 align-self-center">
+        <input class="form-control mt-2" type="search" placeholder="Busca..." aria-label="Search" id="search"  onkeyup="buscaItem()">
+      </div>
+      <div class="col-3 align-self-center">
+        <button class="btn" onclick="limpaBusca()"><i class="fas fa-redo"></i></button>
       </div>
     </div>
     <hr>
@@ -110,7 +112,7 @@
                             <div class="card-body col-12 col-lg-6 bg-ligth" id="itens">
                               <%=dado.descrprod%>
                             <span id="span"><strong>$<%=dado.vlrvenda%></strong></span>
-                            <span id="estoque"><i class="fas fa-cubes"></i><strong>   <%=dado.estoque%></strong></span>
+                            <span id="estoque"><i class="fas fa-cubes"></i><strong>   <%if(dado.estoque>2) {%><%=dado.estoque-2%><%}%></strong></span>
                             <button key="<%=dado.codprod%>,<%=dado.descrprod%>,<%=dado.vlrvenda%>,<%=dado.codbarra%>" class=" btn btn-success" id="btnAdd" <% if(dado.estoque=='0') { %> hidden <% } %> >+</button>
                             </div>
 

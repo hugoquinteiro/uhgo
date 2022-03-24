@@ -2,9 +2,7 @@ const tbodyItens = document.getElementById('tbodyItens')
 var totalPed = document.getElementsByClassName("totalPed")
 var vlrDescto = document.getElementById('vlrDescto')
 var totalLiq = document.getElementById('totalLiq')
-//console.log('Entrei na tela')
 var inclui = document.getElementsByTagName('button')
-//var per5 = document.getElementById('per5').value
 
 
 //Inclui item no pedido
@@ -16,27 +14,20 @@ for( var i=0; i<inclui.length; i++){
     //console.log(key)
     var item = []
     item =  key.split(',')  //JSON.parse
-    //console.log(item)
-    //pedido.item[0] = item[0]
-    item[3]++
-    //totalped += parseFloat(item[2])
+
     pedido.push(item)
     
     //Carregando a tabela
     let tbody = document.getElementById('tbodyItens')
-    //let idtotalped = document.getElementById('totalped')
     let tr = tbody.insertRow()
 
     let td_codprod = tr.insertCell()
     let td_descrprod = tr.insertCell()
-    // let td_qtd = tr.insertCell()
     let td_valor = tr.insertCell()
     let td_delete = tr.insertCell()
-    //let td_codbarra = tr.insertCell()
 
     td_codprod.innerText = item[0]
     td_descrprod.innerText = item[1]
-    // td_qtd.innerText = item[2]
     td_valor.innerText = item[2]
     td_delete.innerHTML = `<button class="btnDelete btn btn-danger" id="btnDelete">X</button>`
     td_delete.setAttribute('value', item[3] )
@@ -146,12 +137,22 @@ async function Gravar(){
     .then(resp => {
       //console.log('post', resp.data)
       //alert('Pedido for gravado: ' + resp.data.id )
-      alert('Pedido gerado com Sucesso', 'success')
+      alert('Pedido enviado...', 'success')
+      setTimeout( ()=> {
+        window.location.href = '/';  
+      }, 2000)
+
     } )
   } else {
     alert('Pedido sem Itens', 'danger')
   }
  
+}
+
+function limpaBusca(){
+  var busca = document.getElementById("search");
+  busca.value = ""
+  buscaItem()
 }
 
 function buscaItem() {

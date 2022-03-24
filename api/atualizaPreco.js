@@ -1,5 +1,8 @@
 var axios = require('axios');
 var login = require('./loginapi')
+const server = require('./server')
+
+const url = `http://${server.name}/mge/service.sbr?serviceName=DbExplorerSP.executeQuery&application=DbExplorer&outputType=json`
 
 var precos =  async function(){
    return login().then( async (res) => {
@@ -18,7 +21,7 @@ var precos =  async function(){
 
   var config = {
     method: 'get',
-    url: 'http://192.168.1.56:8280/mge/service.sbr?serviceName=DbExplorerSP.executeQuery&application=DbExplorer&outputType=json',
+    url: url,
     headers: { 
       'Content-Type': 'application/json', 
       'Cookie': `JSESSIONID=${jsId}`

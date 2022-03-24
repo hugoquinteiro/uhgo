@@ -10,10 +10,10 @@ var consulta = async function(){
         var jsId = await res
 
         var data ={serviceName: "DbExplorerSP.executeQuery", 
-                requestBody: {sql: `SELECT exc.codprod, (estoque-reservado) as saldo 
+                requestBody: {sql: `SELECT exc.codprod, (estoque-reservado)-(SELECT  COALESCE(SUM(ite.qtdneg),0) as qtd FROM tgfcab cab INNER JOIN tgfite ite ON (cab.nunota = ite.nunota) WHERE codtipoper=3201 AND dtneg>='01/03/2022' and ite.codprod=exc.codprod) as saldo 
                                     FROM tgfexc exc  
                                     INNER JOIN tgfest est ON (est.codprod = exc.codprod AND  exc.nutab=440 )
-                                    WHERE est.codemp=11 AND est.codlocal=2 AND est.tipo='P' AND est.codparc=0
+                                    WHERE est.codemp=11 AND est.codlocal=40 AND est.tipo='P' 
                                     ORDER BY 1`
         }
     }

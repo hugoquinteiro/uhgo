@@ -12,6 +12,7 @@ const atualizaPreco = require('./api/atualizaPreco')
 const consultaEstoque = require('./api/buscaEstoque')
 const updateEstoque = require('./pgsql/updateEstoque')
 const insUpProduto  = require('./pgsql/insertUpdateProduto')
+const { query } = require('express')
 
 
 //config
@@ -93,7 +94,7 @@ app.get('/pedido', function(req, res){
   console.log('carregar pedido', tempPed)
   if(req.session.login){
 
-   const query = `SELECT codprod, descrprod, marca.marcapublico, produto.marca, referencia, vlrvenda, marca.color, marca.textcolor, estoque 
+   const query = `SELECT codprod, descrprod, marca.marcapublico, produto.marca, referencia, vlrvenda, codbarra, marca.color, marca.textcolor, estoque 
                 FROM produto LEFT JOIN marca ON (produto.marca = marca.marca) 
                 ORDER BY marca.ordem, descrprod`
    select(query).then(produtos => {
@@ -105,7 +106,7 @@ app.get('/pedido', function(req, res){
       total.push(valor)
     })
 
-//    console.log(config)
+  //console.log(config)
     res.render('pedido', {total: total, usuario:req.session.login, config:config})
   })
     //console.log(listaProd) //teste
@@ -127,7 +128,8 @@ app.post('/gravar', (req, res) => {
   })
   //console.log('Desc: ', vlrDescto)
   totalItens = totalItens.toFixed(2)
-let dtcria = new Date()
+  
+  let dtcria = new Date()
   var cab = {}
 
   cab = {usuario:req.session.login, dtcria:dtcria,total:totalItens, desc:vlrDescto}
@@ -143,9 +145,6 @@ let dtcria = new Date()
     //console.log('impressão ativa:', config.imprimecupom)
     var dados = {}
     dados.dados = req.body
-    //console.log('OBJETO:',dados, totalItens, req.session.login )
-    //print(dados , totalItens, req.session.login)  
-    //print.write("Imprime  Pedido\x0A")
     const init = "\x1B\x40"//Initialize
     const line = "\x0A" //Espaço grande após comando
     const ean13b =  "\x1D\x6B\x43\x0C" //Funcionando****
@@ -156,26 +155,29 @@ let dtcria = new Date()
     var ean
     var totalLiq
     totalLiq = totalItens - vlrDescto
-    var command ='Vendedor:'+req.session.login+'   T O T A L: R$ '+totalLiq.toLocaleString('pt-br', {minimumFractionDigits: 2, maximumFractionDigits:2})+line
+    var command ='Vendedor:'+req.session.login+line
+    
     if(vlrDescto>0){
-      command += `Itens: ${totalItens}, com desconto de (${((vlrDescto/totalItens)*100).toFixed(2)}%)  R$ ${vlrDescto}${line}${line}`
+      command += `Itens: ${totalItens}${line}`
+      command += `Desconto de (${((vlrDescto/totalItens)*100).toFixed(2)}%)  R$ ${vlrDescto}${line}${line}`
     } else {
       command += line
     }
+    command+= '   T O T A L: R$ '+totalLiq.toLocaleString('pt-br', {minimumFractionDigits: 2, maximumFractionDigits:2})+line+line
    
     dados.dados.forEach(e => {
       ean = e[3].substr(0, 12)
+      //console.log('ean:', ean)
       command +=condens+e[1]+line+'  R$ '+e[2]+line+height+ean13b+ean+line
     });
+    const site = `${line}${line} Veja mais em:   www.mqhair.com.br/${line}` 
     print.write(init+command+cut)
   }
 
-  
 })
 
 app.get('/atualizaPreco', function(req, res){
   if(req.session.login){
-
     atualizaPreco()
       .then(async function (response) {
         //console.log(response.data.responseBody.rows);
@@ -194,6 +196,20 @@ app.get('/atualizaPreco', function(req, res){
     res.render('index', {usuario:'** SEM USUÁRIO **', logout:false})
   }
 })
+
+app.get('/consultaEstoque', function(req, res){
+  if(req.session.login){
+    const query = `SELECT codprod, descrprod, estoque, vlrvenda FROM produto ORDER BY estoque`
+    select(query).then(produtos => {
+      console.log(produtos)
+      res.render('consultaEstoque', {produto: produtos, logout:true,  usuario:req.session.login, config:config})
+    })
+  } else {
+    res.render('index', {usuario:'** SEM USUÁRIO **', logout:false})
+  }
+})
+
+
 
 app.get('/params', (req, res) =>{
   if(req.session.login){
