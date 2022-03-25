@@ -37,6 +37,7 @@ var consulta = async function(){
     })
     .catch(function (error) {
       console.log(error);
+      return []
     });
     
     })
